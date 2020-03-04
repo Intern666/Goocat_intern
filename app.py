@@ -13,7 +13,6 @@ app.register_blueprint(login_blu)
 app.register_blueprint(question_blu)
 app.register_blueprint(answer_blu)
 
-
 @app.route('/', methods=["GET", "POST"])
 def index():
     context = {
@@ -34,4 +33,6 @@ def my_context_processor():
 
 
 if __name__ == '__main__':
+    from werkzeug.contrib.fixers import ProxyFix
+    app.wsgi_app = ProxyFix(app.wsgi_app)
     app.run(debug=True)
