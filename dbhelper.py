@@ -1,5 +1,6 @@
 # encoding: utf-8
 import pymysql
+import logging
 
 config = {
     'host': '127.0.0.1',
@@ -34,8 +35,11 @@ def insert_user(email, username, password):
     sql = "insert into user_info (UserEmail, UserName, UserPassword) " \
           "VALUES (%s, %s, %s)"
     args = (email, username, password)
-    cursor.execute(sql, args)
-    conn.commit()
+    try:
+        cursor.execute(sql, args)
+        conn.commit()
+    except Exception as e:
+        logging.error(str(e))
 
 
 def fetch_user_by_email(email):
