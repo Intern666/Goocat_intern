@@ -13,7 +13,7 @@ app.register_blueprint(login_blu)
 app.register_blueprint(question_blu)
 app.register_blueprint(answer_blu)
 
-#aaa
+
 @app.route('/', methods=["GET", "POST"])
 def index():
     context = {
