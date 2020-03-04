@@ -10,11 +10,15 @@ mysql版本 5.7
 ### 使用方法
 - 克隆项目到本地
 
-`git clone https://github.com/Intern666/Goocat_intern.git`
+```
+git clone https://github.com/Intern666/Goocat_intern.git
+```
 
 - 先创建一个虚拟环境，避免污染整个Python的环境。
 
-`pip install virtualenv`
+```
+pip install virtualenv
+```
 
 - 创建一个文件夹，名字：Virtualenv
 
@@ -25,7 +29,9 @@ cd Virtualenv
 
 - 创建一个虚拟环境 venv
 
-`virtualenv venv`
+```
+virtualenv venv
+```
 
 激活虚拟环境
 
@@ -37,7 +43,9 @@ activate
 
 - 安装需要的各种包
 
-`pip install -r requirements.txt`
+```
+pip install -r requirements.txt
+```
 
 - 导入数据库，sql文件放在sql文件夹中
 
