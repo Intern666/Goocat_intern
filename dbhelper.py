@@ -1,22 +1,25 @@
 # encoding: utf-8
 import pymysql
+import logging
 
 config = {
-        'host': '127.0.0.1',
-        'port': 3306,
-        'user': 'root',
-        'passwd': 'language',
-        'charset': 'utf8mb4',
-        'cursorclass': pymysql.cursors.DictCursor
-        }
+    'host': '101.37.23.58',
+    'port': 3306,
+    'user': 'root',
+    'passwd': 'root',
+    'charset': 'utf8mb4',
+    'cursorclass': pymysql.cursors.DictCursor
+}
+
 
 # 数据库连接
 def connect():
     conn = pymysql.connect(**config)
     conn.autocommit(1)
     cursor = conn.cursor()
-    conn.select_db("goocat_intern")
+    conn.select_db("goocat")
     return conn, cursor
+
 
 conn, cursor = connect()
 
@@ -32,8 +35,11 @@ def insert_user(email, username, password):
     sql = "insert into user_info (UserEmail, UserName, UserPassword) " \
           "VALUES (%s, %s, %s)"
     args = (email, username, password)
-    cursor.execute(sql, args)
-    conn.commit()
+    try:
+        cursor.execute(sql, args)
+        conn.commit()
+    except Exception as e:
+        logging.error(str(e))
 
 
 def fetch_user_by_email(email):
