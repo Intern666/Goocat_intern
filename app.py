@@ -9,7 +9,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.urandom(24)
 
-
+#aaa
 @app.route('/', methods=["GET", "POST"])
 def index():
     context = {
