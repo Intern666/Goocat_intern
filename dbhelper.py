@@ -162,7 +162,7 @@ def fetch_user_by_id(user_id):
     :param user_id:
     :return:
     """
-    sql = "select * from user where id=%s"
+    sql = "select * from user_info where id=%s"
     args = (user_id)
     cursor.execute(sql, args)
     user = cursor.fetchall()
