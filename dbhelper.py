@@ -2,13 +2,14 @@
 import pymysql
 
 config = {
-        'host': '127.0.0.1',
-        'port': 3306,
-        'user': 'root',
-        'passwd': 'language',
-        'charset': 'utf8mb4',
-        'cursorclass': pymysql.cursors.DictCursor
-        }
+    'host': '127.0.0.1',
+    'port': 3306,
+    'user': 'root',
+    'passwd': 'root',
+    'charset': 'utf8mb4',
+    'cursorclass': pymysql.cursors.DictCursor
+}
+
 
 # 数据库连接
 def connect():
@@ -17,6 +18,7 @@ def connect():
     cursor = conn.cursor()
     conn.select_db("goocat_intern")
     return conn, cursor
+
 
 conn, cursor = connect()
 
