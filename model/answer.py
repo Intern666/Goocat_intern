@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 import time
 from decorators import login_required
 from flask import Blueprint, render_template, request, url_for, session, redirect

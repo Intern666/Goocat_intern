@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 import time
 from flask import Blueprint, request, render_template, session, url_for, redirect
 import dbhelper
