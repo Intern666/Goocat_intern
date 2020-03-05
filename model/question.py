@@ -30,4 +30,4 @@ def search():
         # title, content
         # 或 查找方式（通过标题和内容来查找）
         questions = dbhelper.search_by_key(search_key)
-        return render_template('index.html', questions=questions, search_content=search_key)
+        return render_template('index.html', questions=questions, search_key=search_key)
