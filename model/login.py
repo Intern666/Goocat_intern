@@ -15,15 +15,16 @@ def regist():
         username = request.form.get('username')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
-
+        if email=='' or username =='' or password1 =='' or password2 =='':
+            return render_template('regist.html',  error='输入有误，请重新输入！')
         user = dbhelper.fetch_user_by_email(email)
         # 手机号码验证，如果被注册了就不能用了
         if user:
-            return u'该手机号码被注册，请更换手机'
+            return render_template('regist.html', error_email='该邮箱被注册，请更换邮箱！')
         else:
             # password1 要和password2相等才可以
             if password1 != password2:
-                return u'两次密码不相等，请核实后再填写'
+                return render_template('regist.html', error_password='两次密码不相等，请核实后再填写')
             else:
                 dbhelper.insert_user(email, username, password1)
                 return redirect(url_for('login.login'))
@@ -36,6 +37,9 @@ def login():
     else:
         email = request.form.get('email')
         password = request.form.get('password')
+        if email=='' or password=='':
+            return render_template('login.html',  error='输入有误，请重新输入！')
+
         # 根据邮箱和密码查找表中是否有对应的user
         user = dbhelper.fetch_user_by_email_and_password(email, password)
         if user:
@@ -44,7 +48,7 @@ def login():
             session.permanent = True
             return redirect(url_for('index', userid=user[0].get("id")))
         else:
-            return u'手机号码或者密码错误，请确认好在登录'
+            return render_template('login.html',  error='手机号码或者密码错误，请确认好再登录')
 
 
 @login_blu.route('/logout/')

@@ -3,7 +3,7 @@ import pymysql
 import logging
 
 config = {
-    'host': '101.37.23.58',
+    'host': '127.0.0.1',
     'port': 3306,
     'user': 'root',
     'passwd': 'root',
@@ -17,7 +17,7 @@ def connect():
     conn = pymysql.connect(**config)
     conn.autocommit(1)
     cursor = conn.cursor()
-    conn.select_db("goocat")
+    conn.select_db("goocat_intern")
     return conn, cursor
 
 
