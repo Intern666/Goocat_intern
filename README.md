@@ -5,7 +5,7 @@
 一个可以自动问答的校园论坛
 
 ### 所需环境
-python2.7 
+python2.7  python3
 
 mysql版本 5.7
 
