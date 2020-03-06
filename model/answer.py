@@ -24,7 +24,6 @@ def add_answer():
     author_id = session['user_id']
     # 获取当前时间对应时间戳
     # create_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-
     # 插入一条回答
     if content != '':
         temp = dbhelper.fetch_user_by_id(author_id)

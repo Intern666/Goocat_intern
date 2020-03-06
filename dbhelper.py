@@ -216,24 +216,27 @@ def answer_count(question_id, conn=conn, cursor=cursor):
     count = cursor.fetchall()[0].get("count")
     return count
 
-def update_user_mute(user_id,user_mute):
-    user_new_mute = (int(user_mute)+1)%2
+
+@sql_required
+def update_user_mute(user_id, user_mute, conn=conn, cursor=cursor):
+    user_new_mute = (int(user_mute) + 1) % 2
     sql = "update user_info set UserMute=%s where id=%s"
-    args = (str(user_new_mute),user_id)
-    cursor.execute(sql,args)
+    args = (str(user_new_mute), user_id)
+    cursor.execute(sql, args)
     conn.commit()
 
-def delete_question_by_questionId(question_id):
+
+@sql_required
+def delete_question_by_questionId(question_id, conn=conn, cursor=cursor):
     sql = "delete from user_question where id=%s"
     args = (question_id)
-    cursor.execute(sql,args)
+    cursor.execute(sql, args)
     conn.commit()
 
-def delete_answers_by_questionID(question_id):
+
+@sql_required
+def delete_answers_by_questionID(question_id, conn=conn, cursor=cursor):
     sql = "delete from user_answer where QuestionID=%s"
     args = (question_id)
-    cursor.execute(sql,args)
+    cursor.execute(sql, args)
     conn.commit()
-
-
-

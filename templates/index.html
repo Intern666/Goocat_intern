@@ -4,53 +4,38 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
 {% endblock %}
 {% block main %}
-    <ul class="question-list">
+    {% if questions|length == 0 %}
+        <div class="question-group">
+            <p class="attention-info">
+                {% if search_key %}
+                    当前关键词无结果
+                {% else %}
+                    当前无问题
+                {% endif %}
+            </p>
+        </div>
+    {% endif %}
     {% for question in questions %}
-         <li>
+        <ui>
             <div class="avatar-group">
                 <img src="{{ url_for('static',filename='images/1110055.png') }}" alt="" class="avatar">
             </div>
             <div class="question-group">
-                <p class="question-title"><a href="{{ url_for('answer.detail', question_id=question.id) }}">{{ question.QuestionTitle }}</a></p>
-                <p class="question-content">{{ question.QuestionContent }}</p>
-            <div class="question-info">
-                {% if user%}
-                    <span class="question-author"><a href="{{ url_for('admin.right', author_id=question.UserID)}}">{{question.UserName }}</a></span>
-                {% else %}
-                    <span class="question-author">{{ question.UserName }}</span>
-                {% endif %}
-                <span class="question-time">{{ question.QuestionTime }}</span>
-            </div>
-            </div>
-        </li>
-    {% endfor %}
-        {% if questions|length == 0 %}
-            <div class="question-group">
-                <p class="attention-info">
-                    {% if search_key %}
-                        当前关键词无结果
-                    {% else %}
-                        当前无问题
-                    {% endif %}
+                <p class="question-title"><a
+                        href="{{ url_for('answer.detail', question_id=question.id) }}">{{ question.QuestionTitle }}</a>
                 </p>
-            </div>
-        {% endif %}
-        {% for question in questions %}
-            <li>
-                <div class="avatar-group">
-                    <img src="{{ url_for('static',filename='images/1110055.png') }}" alt="" class="avatar">
-                </div>
-                <div class="question-group">
-                    <p class="question-title"><a
-                            href="{{ url_for('answer.detail', question_id=question.id) }}">{{ question.QuestionTitle }}</a>
-                    </p>
-                    <p class="question-content">{{ question.QuestionContent }}</p>
-                    <div class="question-info">
+                <p class="question-content">{{ question.QuestionContent }}</p>
+                <div class="question-info">
+                    {% if user and user.UserStatus=='1' %}
+                        <span class="question-author"><a
+                                href="{{ url_for('admin.right', author_id=question.UserID) }}">{{ question.UserName }}</a></span>
+                    {% else %}
                         <span class="question-author">{{ question.UserName }}</span>
-                        <span class="question-time">{{ question.QuestionTime }}</span>
-                    </div>
+                    {% endif %}
+                    <span class="question-time">{{ question.QuestionTime }}</span>
                 </div>
-            </li>
-        {% endfor %}
+            </div>
+        </ui>
+    {% endfor %}
     </ul>
 {% endblock %}

@@ -6,18 +6,18 @@
 {% block main %}
 
  <h3 class="page-title">用户的个人中心（管理员视图）</h3>
-    <h3 class="question-content">用户禁言状态：{{ user_muted[0].UserMute }}</h3>
+    <h3 class="question-content">用户禁言状态：{{ user_muted.UserMute }}</h3>
     <form action="" method="post">
-        <input type="hidden" name="user_id" value="{{ user_muted[0].id }}">
-        <input type="hidden" name="user_mute" value="{{ user_muted[0].UserMute }}">
+        <input type="hidden" name="user_id" value="{{ user_muted.id }}">
+        <input type="hidden" name="user_mute" value="{{ user_muted.UserMute }}">
         <div  class="form-group" style="text-align: right">
-            <button type="submit" class="btn btn-primary" id="user_mute" >{{ user_muted[0].mute_text }}</button>
+            <button type="submit" class="btn btn-primary" id="user_mute" >{{ user_muted.mute_text }}</button>
         </div>
     </form>
         <script type="text/javascript">
            $(document).ready(function () {
                $("submit").click(function () {
-                   if ({{user_muted[0].UserMute}} == 1){//如果按按钮前该用户已被禁言
+                   if ({{user_muted.UserMute}} == 1){//如果按按钮前该用户已被禁言
                        $("#user_mute").html('禁言');//后端解除禁言，并重新显示可禁言的按钮
                    }
                    else{
