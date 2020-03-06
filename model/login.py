@@ -43,6 +43,8 @@ def login():
         # 根据邮箱和密码查找表中是否有对应的user
         user = dbhelper.fetch_user_by_email_and_password(email, password)
         if user:
+            if user.get("UserStatus")=='1':
+                return render_template('login.html',  error='该用户已被禁用！')
             session['user_id'] = user.get("id")
             # 如果想在31天内都不需要登录
             session.permanent = True
