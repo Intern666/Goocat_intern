@@ -19,7 +19,15 @@
                 <button type="submit" class="btn btn-primary btn-block">登录</button>
             </div>
             <div class="form-group">
-                <label id="label_error" style="display:block;color: red">{{ error }}</label>
+                <label id="label_error" style="display:block;color: red;text-align: center">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                    {{ message }}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}{{ error }}
+                </label>
             </div>
         </div>
     </form>

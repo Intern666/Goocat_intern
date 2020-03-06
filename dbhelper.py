@@ -151,7 +151,7 @@ def fetch_user_by_email_and_password(email, password, conn=conn, cursor=cursor):
     sql = "select * from user_info where UserEmail=%s and UserPassword=%s"
     args = (email, password)
     cursor.execute(sql, args)
-    user = cursor.fetchall()
+    user = cursor.fetchone()
     return user
 
 
@@ -200,7 +200,7 @@ def fetch_user_by_id(user_id, conn=conn, cursor=cursor):
     sql = "select * from user_info where id=%s"
     args = (user_id)
     cursor.execute(sql, args)
-    user = cursor.fetchall()
+    user = cursor.fetchone()
     return user
 
 

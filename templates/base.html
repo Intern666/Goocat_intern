@@ -40,7 +40,7 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
           {% if user%}
-              <li><a href="#">{{ user[0].UserName }}</a></li>
+              <li><a href="#">{{ user.UserName }}</a></li>
               <li><a href="{{ url_for('login.logout') }}">注销</a></li>
           {% else %}
               <li><a href="{{ url_for('login.login') }}">登录</a></li>

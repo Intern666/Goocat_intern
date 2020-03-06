@@ -43,12 +43,12 @@ def login():
         # 根据邮箱和密码查找表中是否有对应的user
         user = dbhelper.fetch_user_by_email_and_password(email, password)
         if user:
-            session['user_id'] = user[0].get("id")
+            session['user_id'] = user.get("id")
             # 如果想在31天内都不需要登录
             session.permanent = True
-            return redirect(url_for('index', userid=user[0].get("id")))
+            return redirect(url_for('index', userid=user.get("id")))
         else:
-            return render_template('login.html',  error='手机号码或者密码错误，请确认好再登录')
+            return render_template('login.html',  error='邮箱地址或者密码错误，请确认好再登录')
 
 
 @login_blu.route('/logout/')
