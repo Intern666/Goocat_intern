@@ -30,9 +30,14 @@ def my_context_processor():
     if user_id:
         user = dbhelper.fetch_user_by_id(user_id)
         if user:
+            if user.get("UserStatus")=='1':
+                session.clear()
+                return {}
             return {'user': user}
     return {}
 
 
 if __name__ == '__main__':
+    from werkzeug.contrib.fixers import ProxyFix
+    app.wsgi_app = ProxyFix(app.wsgi_app)
     app.run(debug=True)

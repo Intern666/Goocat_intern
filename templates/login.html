@@ -6,27 +6,58 @@
 
 {% block main %}
     <h3 class="page-title">登录</h3>
-    <form action="" method="post">
-      <div class="form-container">
-          <div class="form-group">
-              <input type="text" class="form-control" placeholder="邮箱" name="email">
-          </div>
+    <form action="" method="post" onsubmit="return OnSubmit()">
+        <div class="form-container">
             <div class="form-group">
-              <input type="password" class="form-control" placeholder="密码" name="password">
-          </div>
-          <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block">登录</button>
-          </div>
-          <div class="form-group">
-          <label id="label_error" style="display:none;color: red">{{error}}</label>
+                <input type="text" class="form-control" placeholder="邮箱" name="email" id="email" onblur="EmailCheck()">
+                <label id="email_error" style="display:block;color: red"></label>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="密码" name="password" id="password">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">登录</button>
+            </div>
+            <div class="form-group">
+                <label id="label_error" style="display:block;color: red;text-align: center">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                    {{ message }}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}{{ error }}
+                </label>
+            </div>
         </div>
-      </div>
     </form>
     <script>
-    var errorinfo = document.getElementById('label_error').innerText;
-    if(errorinfo.length!=0)
-    {
-        document.getElementById('label_error').style.display="block";
-    }
+        flag = true;
+
+        function EmailCheck(){
+            var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+            if (!myreg.test($('#email').val())){
+                $('#email_error').html("邮箱不合法！");
+                flag = false;
+            }else{
+                $('#email_error').html("");
+                flag = true;
+            }
+        }
+
+        function OnSubmit() {
+            if (!flag){
+                return flag;
+            }
+            var errorinfo = $('#label_error');
+            if ($('#email').val() == '') {
+                errorinfo.html('登录邮箱不能为空');
+                return false;
+            } else if ($('#password').val() == '') {
+                errorinfo.html("密码不能为空");
+                return false;
+            }
+            return true;
+        }
     </script>
 {% endblock %}

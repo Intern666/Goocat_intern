@@ -26,5 +26,10 @@ def add_answer():
     # create_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
     # 插入一条回答
-    dbhelper.insert_answer(content, question_id, author_id)
+    if content != '':
+        temp = dbhelper.fetch_user_by_id(author_id)
+        if temp['UserMute'] == '1':
+            # print('禁言用户非法访问！')
+            return redirect(url_for('answer.detail', question_id=question_id))
+        dbhelper.insert_answer(content, question_id, author_id)
     return redirect(url_for('answer.detail', question_id=question_id))

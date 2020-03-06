@@ -1,6 +1,7 @@
 # encoding: utf-8
-import pymysql
 import logging
+
+import pymysql
 
 config = {
     'host': '101.37.23.58',
@@ -17,17 +18,36 @@ def connect():
     conn = pymysql.connect(**config)
     conn.autocommit(1)
     cursor = conn.cursor()
-    conn.select_db("goocat_intern")
+    conn.select_db("goocat")
     return conn, cursor
 
 
 conn, cursor = connect()
+conn.close()
 
 
-def insert_user(email, username, password):
+def sql_required(func):
+    def decorate(*args, **kwargs):
+        try:
+            conn, cursor = connect()
+            result = func(*args, **kwargs, conn=conn, cursor=cursor)
+        except Exception as e:
+            result = None
+            logging.error(str(e))
+            print(str(e))
+        finally:
+            cursor.close()
+            conn.close()
+            return result
+
+    return decorate
+
+
+@sql_required
+def insert_user(email, username, password, conn=conn, cursor=cursor):
     """
-    插入一条用户记录
-    :param telephone:
+    插入一个用户
+    :param email:
     :param username:
     :param password:
     :return:
@@ -42,7 +62,8 @@ def insert_user(email, username, password):
         logging.error(str(e))
 
 
-def fetch_user_by_email(email):
+@sql_required
+def fetch_user_by_email(email, conn=conn, cursor=cursor):
     sql = "select * from user_info where UserEmail = %s"
     args = email
     cursor.execute(sql, args)
@@ -50,7 +71,8 @@ def fetch_user_by_email(email):
     return user
 
 
-def fetch_all_questions():
+@sql_required
+def fetch_all_questions(conn=conn, cursor=cursor):
     """
     取到所有问题
     :return:问题列表，列表每一项是一个字典，对应question表中的属性
@@ -65,7 +87,8 @@ def fetch_all_questions():
     return rows
 
 
-def fetch_questions_by_questionid(question_id):
+@sql_required
+def fetch_questions_by_questionid(question_id, conn=conn, cursor=cursor):
     """
     通过questionid取得对应问题，理论上id为主键，唯一
     :param question_id:
@@ -78,12 +101,12 @@ def fetch_questions_by_questionid(question_id):
           " from user_question a left join user_info b on a.`UserID` = b.`id` where a.`id`=%s limit 1"
     args = question_id
     cursor.execute(sql, args)
-    rows = cursor.fetchall()
-    question = rows[0]
+    question = cursor.fetchone()
     return question
 
 
-def fetch_answers_by_questionid(question_id):
+@sql_required
+def fetch_answers_by_questionid(question_id, conn=conn, cursor=cursor):
     """
     通过问题id取得对应的回答
     :param question_id:
@@ -100,7 +123,8 @@ def fetch_answers_by_questionid(question_id):
     return answers
 
 
-def insert_answer(content, question_id, author_id):
+@sql_required
+def insert_answer(content, question_id, author_id, conn=conn, cursor=cursor):
     """
     插入一条回答记录到answer表中
     :param content: 回答内容
@@ -115,7 +139,8 @@ def insert_answer(content, question_id, author_id):
     conn.commit()
 
 
-def fetch_user_by_email_and_password(email, password):
+@sql_required
+def fetch_user_by_email_and_password(email, password, conn=conn, cursor=cursor):
     """
     通过邮箱和密码查询user表返回对应user
     :param email:
@@ -125,11 +150,12 @@ def fetch_user_by_email_and_password(email, password):
     sql = "select * from user_info where UserEmail=%s and UserPassword=%s"
     args = (email, password)
     cursor.execute(sql, args)
-    user = cursor.fetchall()
+    user = cursor.fetchone()
     return user
 
 
-def insert_question(title, content, author_id):
+@sql_required
+def insert_question(title, content, author_id, conn=conn, cursor=cursor):
     """
     插入一条question记录
     :param title:
@@ -144,7 +170,8 @@ def insert_question(title, content, author_id):
     conn.commit()
 
 
-def search_by_key(search_key):
+@sql_required
+def search_by_key(search_key, conn=conn, cursor=cursor):
     """
     根据key查找包含该key的问题
     :param search_key:
@@ -162,7 +189,8 @@ def search_by_key(search_key):
     return questions
 
 
-def fetch_user_by_id(user_id):
+@sql_required
+def fetch_user_by_id(user_id, conn=conn, cursor=cursor):
     """
     根据id取得对应的user
     :param user_id:
@@ -171,11 +199,12 @@ def fetch_user_by_id(user_id):
     sql = "select * from user_info where id=%s"
     args = (user_id)
     cursor.execute(sql, args)
-    user = cursor.fetchall()
+    user = cursor.fetchone()
     return user
 
 
-def answer_count(question_id):
+@sql_required
+def answer_count(question_id, conn=conn, cursor=cursor):
     """
     获取该question的回答总数
     :param question_id:
