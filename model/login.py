@@ -48,7 +48,7 @@ def login():
             session.permanent = True
             return redirect(url_for('index', userid=user[0].get("id")))
         else:
-            return render_template('login.html',  error='手机号码或者密码错误，请确认好再登录')
+            return render_template('login.html',  error='邮箱地址或者密码错误，请确认好再登录')
 
 
 @login_blu.route('/logout/')
