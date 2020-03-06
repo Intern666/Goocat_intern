@@ -3,10 +3,10 @@ import pymysql
 import logging
 
 config = {
-    'host': '127.0.0.1',
-    'port': 3307,
+    'host': '101.37.23.58',
+    'port': 3306,
     'user': 'root',
-    'passwd': 'Zhwlf1998',
+    'passwd': 'root',
     'charset': 'utf8mb4',
     'cursorclass': pymysql.cursors.DictCursor
 }
@@ -172,7 +172,6 @@ def fetch_user_by_id(user_id):
     args = (user_id)
     cursor.execute(sql, args)
     user = cursor.fetchall()
-    #user = rows[0]
     return user
 
 
