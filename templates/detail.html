@@ -15,6 +15,7 @@
     <h4>评论：（{{ answer_count}}）</h4>
 
     {% if user%}
+        {% if user.UserMute != '1' %}
         <form action="{{ url_for('answer.add_answer') }}" method="post" onsubmit="return checksubmit()">
             <div class="form-group">
                 <input type="text" name="answer_content" id="answer_content" class="form-control" placeholder="请填写评论">
@@ -23,7 +24,15 @@
             <div  class="form-group" style="text-align: right">
                <button type="submit" class="btn btn-primary">评论</button>
             </div>
-        </form>
+            <div class="form-group">
+                        <label id="label_error"
+                               style="display:block;color: red;text-align: center"></label>
+                    </div>
+            </form>
+        {% else %}
+         <br/>
+        <p class="attention-info">您当前已被禁言，如有问题，请联系管理员</p>
+        {% endif %}
     {% else %}
         <br/>
         <p class="attention-info">您当前未登录，如需回答问题。请<a href="{{ url_for('login.login') }}">登录</a>或者<a href="{{ url_for('login.regist') }}">注册</a></p>
@@ -47,6 +56,7 @@
     <script>
     function checksubmit() {
         if ($('#answer_content').val()==""){
+                $('#label_error').html('回答不能为空');
             return false;
         }
         else{
