@@ -101,8 +101,7 @@ def fetch_questions_by_questionid(question_id, conn=conn, cursor=cursor):
           " from user_question a left join user_info b on a.`UserID` = b.`id` where a.`id`=%s limit 1"
     args = question_id
     cursor.execute(sql, args)
-    rows = cursor.fetchall()
-    question = rows[0]
+    question = cursor.fetchone()
     return question
 
 

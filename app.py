@@ -28,6 +28,9 @@ def my_context_processor():
     if user_id:
         user = dbhelper.fetch_user_by_id(user_id)
         if user:
+            if user.get("UserStatus")=='1':
+                session.clear()
+                return {}
             return {'user': user}
     return {}
 
