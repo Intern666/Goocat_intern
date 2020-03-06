@@ -14,7 +14,11 @@
                 <p class="question-title"><a href="{{ url_for('answer.detail', question_id=question.id) }}">{{ question.QuestionTitle }}</a></p>
                 <p class="question-content">{{ question.QuestionContent }}</p>
             <div class="question-info">
-                <span class="question-author">{{ question.UserName }}</span>
+                {% if user%}
+                    <span class="question-author"><a href="{{ url_for('admin.right', author_id=question.UserID)}}">{{question.UserName }}</a></span>
+                {% else %}
+                    <span class="question-author">{{ question.UserName }}</span>
+                {% endif %}
                 <span class="question-time">{{ question.QuestionTime }}</span>
             </div>
             </div>

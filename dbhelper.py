@@ -4,9 +4,9 @@ import logging
 
 config = {
     'host': '127.0.0.1',
-    'port': 3306,
+    'port': 3307,
     'user': 'root',
-    'passwd': 'root',
+    'passwd': 'Zhwlf1998',
     'charset': 'utf8mb4',
     'cursorclass': pymysql.cursors.DictCursor
 }
@@ -58,7 +58,7 @@ def fetch_all_questions():
     # sql = "select * from question order by create_time"
     # sql = "select a.`id`, a.`title`, a.`create_time`, a.`content`, b.`username` from question a " \
     #       "left join user b on a.`author_id`=b.`id` order by a.`create_time` desc"
-    sql = "select a.`id`, a.`QuestionTitle`, a.`QuestionTime`, a.`QuestionContent`, b.`UserName` " \
+    sql = "select a.`id`, a.`QuestionTitle`, a.`QuestionTime`, a.`QuestionContent`, b.`UserName`, a.`UserID`" \
           "from user_question a left join user_info b on a.`UserID`=b.`id` order by a.`QuestionTime` desc"
     cursor.execute(sql)
     rows = cursor.fetchall()
@@ -172,6 +172,7 @@ def fetch_user_by_id(user_id):
     args = (user_id)
     cursor.execute(sql, args)
     user = cursor.fetchall()
+    #user = rows[0]
     return user
 
 
@@ -186,3 +187,25 @@ def answer_count(question_id):
     cursor.execute(sql, args)
     count = cursor.fetchall()[0].get("count")
     return count
+
+def update_user_mute(user_id,user_mute):
+    user_new_mute = (int(user_mute)+1)%2
+    sql = "update user_info set UserMute=%s where id=%s"
+    args = (str(user_new_mute),user_id)
+    cursor.execute(sql,args)
+    conn.commit()
+
+def delete_question_by_questionId(question_id):
+    sql = "delete from user_question where id=%s"
+    args = (question_id)
+    cursor.execute(sql,args)
+    conn.commit()
+
+def delete_answers_by_questionID(question_id):
+    sql = "delete from user_answer where QuestionID=%s"
+    args = (question_id)
+    cursor.execute(sql,args)
+    conn.commit()
+
+
+

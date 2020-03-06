@@ -5,6 +5,7 @@
 {% endblock %}
 {% block main %}
 <h3 class="page-title">{{ question.QuestionTitle }}</h3>
+
     <p class="question-info">
         <span>作者：{{ question.UserName }}</span>
         <span>时间：{{ question.QuestionTime }}</span>
@@ -12,6 +13,10 @@
     <hr/>
     <p class="question-content">{{ question.QuestionContent }}</p>
     <hr/>
+    <form action="{{ url_for('admin.delete_question') }}" method="post">
+        <input type="hidden" name="question_id_delete" value="{{ question.id }}">
+        <button type="submit" class="btn btn-primary">删除问题</button>
+    </form>
     <h4>评论：（{{ answer_count}}）</h4>
     <form action="{{ url_for('answer.add_answer') }}" method="post">
         <div class="form-group">
