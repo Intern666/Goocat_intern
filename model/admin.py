@@ -2,10 +2,12 @@
 from flask import Blueprint, request, render_template, session, redirect, url_for
 
 import dbhelper
+from decorators import login_required, admin_required
 
 admin_blu = Blueprint('admin', __name__)
 
 @admin_blu.route('/right/<author_id>/',methods=['GET', 'POST'])
+@admin_required
 def right(author_id):
     if request.method == 'GET':
         user = dbhelper.fetch_user_by_id(author_id)
@@ -27,6 +29,7 @@ def right(author_id):
 
 
 @admin_blu.route('/delete_question/', methods = ['POST'])
+@admin_required
 def delete_question():
     question_id_delete = request.form.get('question_id_delete')
     dbhelper.delete_answers_by_questionID(question_id_delete)

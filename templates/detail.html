@@ -14,10 +14,21 @@
         <hr/>
         <p class="question-content">{{ question.QuestionContent }}</p>
         <hr/>
-        <form action="{{ url_for('admin.delete_question') }}" method="post">
-            <input type="hidden" name="question_id_delete" value="{{ question.id }}">
-            <button type="submit" class="btn btn-primary">删除问题</button>
-        </form>
+        {% if user %}
+            {% if  user.UserStatus == '1' %}
+                <form action="{{ url_for('admin.delete_question') }}" method="post">
+                    <input type="hidden" name="question_id_delete" value="{{ question.id }}">
+                    <button type="submit" class="btn btn-primary">删除问题</button>
+                </form>
+            {% else %}
+                {% if  user.id == question.UserID %}
+                    <form action="{{ url_for('answer.delete_question') }}" method="post">
+                        <input type="hidden" name="question_id_delete" value="{{ question.id }}">
+                        <button type="submit" class="btn btn-primary">删除问题</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        {% endif %}
         <h4>评论：（{{ answer_count }}）</h4>
         {% if user %}
             {% if user.UserMute != '1' %}

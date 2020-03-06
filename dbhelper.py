@@ -97,7 +97,7 @@ def fetch_questions_by_questionid(question_id, conn=conn, cursor=cursor):
     # sql = "select * from question where id=%s limit 1" % question_id
     # sql = "select a.`id`, a.`title`, a.`content`, a.`create_time`, b.`username` from question a " \
     #       "left join user b on a.`author_id` = b.`id` where a.`id`=%s limit 1"
-    sql = "select a.`id`, a.`QuestionTitle`, a.`QuestionContent`, a.`QuestionTime`, b.`UserName`" \
+    sql = "select a.`id`, a.`QuestionTitle`, a.`QuestionContent`, a.`QuestionTime`, b.`UserName`,a.`UserID`" \
           " from user_question a left join user_info b on a.`UserID` = b.`id` where a.`id`=%s limit 1"
     args = question_id
     cursor.execute(sql, args)
