@@ -6,12 +6,14 @@ from flask import Flask, render_template, session
 from model.login import login_blu
 from model.answer import answer_blu
 from model.question import question_blu
+from model.admin import admin_blu
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.urandom(24)
 app.register_blueprint(login_blu)
 app.register_blueprint(question_blu)
 app.register_blueprint(answer_blu)
+app.register_blueprint(admin_blu)
 
 @app.route('/', methods=["GET", "POST"])
 def index():
@@ -28,7 +30,7 @@ def my_context_processor():
     if user_id:
         user = dbhelper.fetch_user_by_id(user_id)
         if user:
-            if user.get("UserStatus")=='1':
+            if user.get("UserStatus")=='2':
                 session.clear()
                 return {}
             return {'user': user}
