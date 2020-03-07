@@ -16,9 +16,9 @@ def question():
     else:
         author_id = session.get('user_id')
         temp = dbhelper.fetch_user_by_id(author_id)
-        if temp['UserMute']=='1':
+        if temp['UserMute'] == '1':
             # print('禁言用户非法访问！')
-            return  render_template('question.html')
+            return render_template('question.html')
 
         title = request.form.get('title')
         content = request.form.get('content')
@@ -36,3 +36,5 @@ def search():
         # 或 查找方式（通过标题和内容来查找）
         questions = dbhelper.search_by_key(search_key)
         return render_template('index.html', questions=questions, search_key=search_key)
+
+

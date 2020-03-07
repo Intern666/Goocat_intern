@@ -24,7 +24,6 @@ def add_answer():
     author_id = session['user_id']
     # 获取当前时间对应时间戳
     # create_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-
     # 插入一条回答
     if content != '':
         temp = dbhelper.fetch_user_by_id(author_id)
@@ -33,3 +32,15 @@ def add_answer():
             return redirect(url_for('answer.detail', question_id=question_id))
         dbhelper.insert_answer(content, question_id, author_id)
     return redirect(url_for('answer.detail', question_id=question_id))
+
+
+@answer_blu.route('/delete_question_user/', methods=['POST'])
+@login_required
+def delete_question():
+    current_id = session.get('user_id')
+    question_id_delete = request.form.get('question_id_delete')
+    question = dbhelper.fetch_questions_by_questionid(question_id_delete)
+    if current_id==question.get("UserID"):
+        dbhelper.delete_answers_by_questionID(question_id_delete)
+        dbhelper.delete_question_by_questionId(question_id_delete)
+    return redirect('/')
