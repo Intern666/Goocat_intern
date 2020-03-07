@@ -37,7 +37,7 @@ def login():
     else:
         email = request.form.get('email')
         password = request.form.get('password')
-        if email=='' or password=='':
+        if email == '' or password == '':
             return render_template('login.html',  error='输入有误，请重新输入！')
 
         # 根据邮箱和密码查找表中是否有对应的user
@@ -48,7 +48,7 @@ def login():
             session['user_id'] = user.get("id")
             # 如果想在31天内都不需要登录
             session.permanent = True
-            return redirect(url_for('index', userid=user.get("id")))
+            return redirect(url_for('index'))
         else:
             return render_template('login.html',  error='邮箱地址或者密码错误，请确认好再登录')
 
