@@ -37,7 +37,7 @@ def login():
     else:
         email = request.form.get('email')
         password = request.form.get('password')
-        if email=='' or password=='':
+        if email == '' or password == '':
             return render_template('login.html',  error='输入有误，请重新输入！')
 
         # 根据邮箱和密码查找表中是否有对应的user

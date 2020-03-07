@@ -15,6 +15,7 @@ app.register_blueprint(question_blu)
 app.register_blueprint(answer_blu)
 app.register_blueprint(admin_blu)
 
+
 @app.route('/', methods=["GET", "POST"])
 def index():
     context = {
@@ -30,7 +31,7 @@ def my_context_processor():
     if user_id:
         user = dbhelper.fetch_user_by_id(user_id)
         if user:
-            if user.get("UserStatus")=='2':
+            if user.get("UserStatus") == '2':
                 session.clear()
                 return {}
             return {'user': user}
