@@ -1,5 +1,5 @@
 # encoding: utf-8
-from flask import Blueprint, request, render_template, session, redirect, url_for
+from flask import Blueprint, request, render_template, session, redirect, url_for, flash
 
 import dbhelper
 
@@ -48,6 +48,7 @@ def login():
             session['user_id'] = user.get("id")
             # 如果想在31天内都不需要登录
             session.permanent = True
+            flash("You were logged in")
             return redirect(url_for('index'))
         else:
             return render_template('login.html',  error='邮箱地址或者密码错误，请确认好再登录')
