@@ -26,8 +26,8 @@ conn, cursor = connect()
 
 def insert_user(email, username, password):
     """
-    插入一条用户记录
-    :param telephone:
+    插入一个用户
+    :param email:
     :param username:
     :param password:
     :return:

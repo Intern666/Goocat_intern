@@ -6,23 +6,92 @@
 {% endblock %}
 {% block main %}
     <h3 class="page-title">注册</h3>
-    <form action="" method="post">
-      <div class="form-container">
-          <div class="form-group">
-              <input type="text" class="form-control" placeholder="邮箱" name="email">
-          </div>
-          <div class="form-group">
-              <input type="text" class="form-control" placeholder="昵称" name="username">
-          </div>
-              <div class="form-group">
-              <input type="password" class="form-control" placeholder="密码" name="password1">
-          </div>
-              <div class="form-group">
-              <input type="password" class="form-control" placeholder="确认密码" name="password2">
-          </div>
-          <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block">立即注册</button>
-          </div>
-      </div>
+    <form action="" method="post" onsubmit="return OnSubmit()">
+        <div class="form-container">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="邮箱" name="email" id="email" onblur="EmailCheck()">
+                <label id="email_error" style="display:block;color: red">{{ error_email }}</label>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="昵称" name="username" id="username"
+                       onblur="UsernameCheck()">
+                <label id="username_error" style="display:block;color: red"></label>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="密码" name="password1" id="password1"
+                       onblur="Password1Check()">
+                <label id="password1_error" style="display:block;color: red"></label>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="确认密码" name="password2" id="password2"
+                       onblur="Password2Check()">
+                <label id="password2_error" style="display:block;color: red">{{ error_password }}</label>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">立即注册</button>
+            </div>
+            <div class="form-group">
+                <label id="label_error" style="display:block;color: red">{{ error }}</label>
+            </div>
+        </div>
     </form>
+    <script>
+        flag = false;
+
+        function EmailCheck() {
+            if ($('#email').val() == "") {
+                $('#email_error').html("邮箱不能为空");
+                flag = false;
+            } else {
+                var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+                if (!myreg.test($('#email').val())) {
+                    $('#email_error').html("邮箱不合法！");
+                    flag = false;
+                } else {
+                    $('#email_error').html("");
+                    flag = true;
+                }
+            }
+
+        }
+
+        function UsernameCheck() {
+
+            if ($('#username').val() == "") {
+                $('#username_error').html("用户名不能为空");
+                flag = false;
+            } else {
+                $('#username_error').html("");
+                flag = true;
+            }
+        }
+
+        function Password1Check() {
+            if ($('#password1').val() == "") {
+                $('#password1_error').html("密码不能为空");
+                flag = false;
+            } else {
+                $('#password1_error').html("");
+                flag = true;
+            }
+        }
+
+        function Password2Check() {
+            if ($('#password2').val() == "") {
+                $('#password2_error').html("确认密码不能为空");
+                flag = false;
+            } else if ($('#password2').val() != $('#password1').val()) {
+                $('#password2_error').html("两次密码不一致");
+                flag = false;
+
+            } else {
+                $('#password2_error').html("");
+                flag = true;
+            }
+        }
+
+        function OnSubmit() {
+            return flag;
+        }
+    </script>
 {% endblock %}

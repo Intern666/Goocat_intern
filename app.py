@@ -20,6 +20,10 @@ def index():
     }
     return render_template('index.html', **context)
 
+@app.route('/base', methods=["GET", "POST"])
+def base():
+    return render_template('base1.html')
+
 
 # 钩子函数(注销)
 @app.context_processor

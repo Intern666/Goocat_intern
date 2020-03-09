@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}-问答平台</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css')}}" >
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base1.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static',filename='images/hum.jpg') }}" type="image/x-icon" />
+    <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js')}}" crossorigin="anonymous"></script>
+    <style>
+		.xue{
+			background: url({{url_for('static',filename='images/basebg.jpg') }}) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            opacity: 0.9;
+
+		}
+	</style>
+
+
+    {% block head %}{% endblock %}
+<head>
+
+<body class="xue">
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="navbar">主菜单
+                <ul class="menu">
+                    <li><a href="#" class="fa fa-home"></a></li>
+                    <li><a href="#" class="fa fa-pencil"></a></li>
+                    <li><a href="#" class="fa fa-id-card-o"></a></li>
+                    <li><a href="#" class="fa fa-sign-in"></a></li>
+                    <li><a href="#" class="fa fa-arrow-circle-o-up"></a></li>
+                    <li><a href="#" class="fa fa-sign-out"></a></li>
+                    <li><a href="#" class="fa fa-envelope"></a></li>
+                    <li><a href="#" class="fa fa-music"></a></li>
+                    <li><a href="#" class="fa fa-search"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="main">
+    {% block main %}{% endblock %}
+    </div>
+
+</body>
+
+</html>
