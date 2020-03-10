@@ -16,9 +16,9 @@ class MyTestCase(unittest.TestCase):
         ), follow_redirects=True)
 
     def test_login_logout(self):
-        response = self.login('aaa@bbb.com', '123')
-        pdb.set_trace()
-        assert 'You were logged in' in response.data
+        rv = self.login('aaa@bbb.com', '123')
+        # pdb.set_trace()
+        self.assertEqual(200, rv.status_code)
 
 
 if __name__ == '__main__':
