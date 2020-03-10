@@ -10,6 +10,11 @@ answer_blu = Blueprint('answer', __name__)
 
 @answer_blu.route('/detail/<question_id>/')
 def detail(question_id):
+    """
+    问题细节函数，返回问题，该问题所有答案，答案数
+    :param question_id:
+    :return:
+    """
     question = dbhelper.fetch_questions_by_questionid(question_id)
     answers = dbhelper.fetch_answers_by_questionid(question_id)
     answer_count = dbhelper.answer_count(question_id)
@@ -19,6 +24,10 @@ def detail(question_id):
 @answer_blu.route('/add_answer/', methods=['POST'])
 @login_required
 def add_answer():
+    """
+    添加回答函数，返回回答内容，问题id，作者idr
+    :return:
+    """
     content = request.form.get('answer_content')
     question_id = request.form.get('question_id')
     author_id = session['user_id']

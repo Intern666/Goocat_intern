@@ -11,6 +11,10 @@ question_blu = Blueprint('question', __name__)
 @question_blu.route('/question/', methods=['GET', 'POST'])
 @login_required
 def question():
+    """
+    发布问题函数，返回问题标题，作者id，问题内容
+    :return:
+    """
     if request.method == 'GET':
         return render_template('question.html')
     else:
@@ -28,6 +32,10 @@ def question():
 
 @question_blu.route('/search/', methods=['GET', 'POST'])
 def search():
+    """
+    关键词搜索函数，返回带关键词的所有提问s
+    :return:
+    """
     if request.method == "GET":
         return render_template('index.html')
     else:
