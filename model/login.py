@@ -1,5 +1,5 @@
 # encoding: utf-8
-from flask import Blueprint, request, render_template, session, redirect, url_for
+from flask import Blueprint, request, render_template, session, redirect, url_for, flash
 
 import dbhelper
 
@@ -30,7 +30,6 @@ def regist():
                 return redirect(url_for('login.login'))
 
 
-
 @login_blu.route('/login/', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -38,15 +37,21 @@ def login():
     else:
         email = request.form.get('email')
         password = request.form.get('password')
+        if email == '' or password == '':
+            return render_template('login.html',  error='输入有误，请重新输入！')
+
         # 根据邮箱和密码查找表中是否有对应的user
         user = dbhelper.fetch_user_by_email_and_password(email, password)
         if user:
-            session['user_id'] = user[0].get("id")
+            if user.get("UserStatus")=='2':
+                return render_template('login.html',  error='该用户已被禁用！')
+            session['user_id'] = user.get("id")
             # 如果想在31天内都不需要登录
             session.permanent = True
-            return redirect(url_for('index', userid=user[0].get("id")))
+            flash("You were logged in")
+            return redirect(url_for('index'))
         else:
-            return u'邮箱或者密码错误，请确认好在登录'
+            return render_template('login.html',  error='邮箱地址或者密码错误，请确认好再登录')
 
 
 @login_blu.route('/logout/')

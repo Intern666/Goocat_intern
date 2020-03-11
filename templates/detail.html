@@ -4,34 +4,85 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='css/detail.css') }}">
 {% endblock %}
 {% block main %}
-<h3 class="page-title">{{ question.QuestionTitle }}</h3>
-    <p class="question-info">
-        <span>作者：{{ question.UserName }}</span>
-        <span>时间：{{ question.QuestionTime }}</span>
-    </p>
-    <hr/>
-    <p class="question-content">{{ question.QuestionContent }}</p>
-    <hr/>
-    <h4>评论：（{{ answer_count}}）</h4>
-    <form action="{{ url_for('answer.add_answer') }}" method="post">
-        <div class="form-group">
-            <input type="text" name="answer_content" class="form-control" placeholder="请填写评论">
-            <input type="hidden" name="question_id" value="{{ question.id }}">
-        </div>
-        <div  class="form-group" style="text-align: right">
-           <button type="submit" class="btn btn-primary">评论</button>
-        </div>
-    </form>
+    {% if question %}
+        <h3 class="page-title">{{ question.QuestionTitle }}</h3>
+
+        <p class="question-info">
+            <span>作者：{{ question.UserName }}</span>
+            <span>时间：{{ question.QuestionTime }}</span>
+        </p>
+        <hr/>
+        <p class="question-content">{{ question.QuestionContent }}</p>
+        <hr/>
+        {% if user %}
+            {% if  user.UserStatus == '1' %}
+                <form action="{{ url_for('admin.delete_question') }}" method="post">
+                    <input type="hidden" name="question_id_delete" value="{{ question.id }}">
+                    <button type="submit" class="btn btn-primary">删除问题</button>
+                </form>
+            {% else %}
+                {% if  user.id == question.UserID %}
+                    <form action="{{ url_for('answer.delete_question') }}" method="post">
+                        <input type="hidden" name="question_id_delete" value="{{ question.id }}">
+                        <button type="submit" class="btn btn-primary">删除问题</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        <h4>回答：（{{ answer_count }}）</h4>
+        {% if user %}
+            {% if user.UserMute != '1' %}
+                <form action="{{ url_for('answer.add_answer') }}" method="post" onsubmit="return checksubmit()">
+                    <div class="form-group">
+                        <input type="text" name="answer_content" class="form-control" placeholder="请填写回答">
+                        <input type="hidden" name="question_id" value="{{ question.id }}">
+                    </div>
+                    <div class="form-group" style="text-align: right">
+                        <button type="submit" class="btn btn-primary">发布</button>
+                    </div>
+                    <div class="form-group">
+                        <label id="label_error"
+                               style="display:block;color: red;text-align: center"></label>
+                    </div>
+                </form>
+            {% else %}
+                <br/>
+                <p class="attention-info">您当前已被禁言，如有问题，请联系管理员</p>
+            {% endif %}
+        {% else %}
+            <br/>
+            <p class="attention-info">您当前未登录，如需回答问题。请<a href="{{ url_for('login.login') }}">登录</a>或者<a
+                    href="{{ url_for('login.regist') }}">注册</a></p>
+
+        {% endif %}
+    {% else %}
+        <h3 class="attention-info"> 问题走丢了！！ 404</h3>
+    {% endif %}
+
+
+
     <ul class="answer-list">
-    {% for answer in answers %}
-        <li>
-            <div class="user-info">
-                <img src="{{ url_for('static',filename='images/head.jpg') }}" alt="" class="avatar">
-                <span class="username">{{ answer.UserName }}</span>
-                <span class="create-time">{{ answer.AnswerTime }}</span>
-            </div>
-        <p class="answer-content">{{ answer.AnswerContent }}</p>
-        </li>
-    {% endfor %}
+        {% for answer in answers %}
+            <li>
+                <div class="user-info">
+                    <img src="{{ url_for('static',filename='images/1110055.png') }}" alt="" class="avatar">
+                    <span class="username">{{ answer.UserName }}</span>
+                    <span class="create-time">{{ answer.AnswerTime }}</span>
+                </div>
+                <p class="answer-content">{{ answer.AnswerContent }}</p>
+            </li>
+        {% endfor %}
     </ul>
+    <script>
+        function checksubmit() {
+            if ($('#answer_content').val() == "") {
+                $('#label_error').html('回答不能为空');
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+
+    </script>
 {% endblock %}

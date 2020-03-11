@@ -7,24 +7,32 @@
 {% block main %}
     <h3 class="page-title">登录</h3>
     <form action="" method="post" onsubmit="return OnSubmit()">
-      <div class="form-container">
-          <div class="form-group">
-              <input type="text" class="form-control" placeholder="邮箱" name="email" id="email" onblur="EmailCheck()">
-              <label id="email_error" style="display:block;color: red"></label>
-          </div>
+        <div class="form-container">
             <div class="form-group">
-              <input type="password" class="form-control" placeholder="密码" name="password" id="password">
-          </div>
-          <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block">登录</button>
-          </div>
-          <div class="form-group">
-          <label id="label_error" style="display:none;color: red">{{error}}</label>
+                <input type="text" class="form-control" placeholder="邮箱" name="email" id="email" onblur="EmailCheck()">
+                <label id="email_error" style="display:block;color: red"></label>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="密码" name="password" id="password">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">登录</button>
+            </div>
+            <div class="form-group">
+                <label id="label_error" style="display:block;color: red;text-align: center">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                    {{ message }}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}{{ error }}
+                </label>
+            </div>
         </div>
-      </div>
     </form>
     <script>
-    flag = true;
+        flag = true;
 
         function EmailCheck(){
             var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
