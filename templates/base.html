@@ -42,6 +42,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="/">首页<span class="sr-only">(current)</span></a></li>
         <li><a href="{{ url_for('question.question') }}">发布问答</a></li>
+        <li><a href="{{ url_for('person.person_info') }}">个人中心</a></li>
       </ul>
       <form class="navbar-form navbar-left" action="{{ url_for('question.search') }}" method="post">
         <div class="form-group">

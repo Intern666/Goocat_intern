@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %} 个人中心{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/person.css') }}">
+{% endblock %}
+{% block main %}
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+          <img class="logo" src="{{ url_for('static',filename='images/1110055.png') }}" alt="">
+      </a>
+    </div>
+
+    <ul class="nav navbar-nav">
+        <li class="active"><a href="/">个人信息<span class="sr-only">(current)</span></a></li>
+        <li><a href="{{ url_for('person.person_questions') }}">全部提问</a></li>
+        <li><a href="{{ url_for('person.person_answers') }}">全部回答</a></li>
+    </ul>
+
+    <br>
+    <br>
+    <br><center>个人信息</center>
+    <br>
+    <div class="basic_box" style="padding-bottom: 50px;">
+        <ul class="list-group" style="margin-bottom: 10px">
+          <li class="list-group-item" style="width: 800px"> 用户名：{{ username }}</li>
+          <li class="list-group-item" style="width: 800px"> 登陆邮箱：{{ email }}</li>
+          <li class="list-group-item" style="width: 800px"> 性别：{{ gender }}</li>
+          <li class="list-group-item" style="width: 800px"> 学校：{{ school }}</li>
+          <li class="list-group-item" style="width: 800px"> 问答数：{{ questions|length }}</li>
+          <li class="list-group-item" style="width: 800px"> 评论数：{{ answers|length }}</li>
+        </ul>
+    </div>
+
+    <form class="form-group" action="{{ url_for('person.person_info_update_test') }}" method="post">
+        <button type="submit" class="btn btn-default">更新信息</button>
+    </form>
+
+{% endblock %}

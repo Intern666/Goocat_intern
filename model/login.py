@@ -8,6 +8,10 @@ login_blu = Blueprint('login', __name__)
 
 @login_blu.route('/regist/', methods=['GET', 'POST'])
 def regist():
+    """
+    注册函数，检测，返回用户名，email，密码
+    :return:
+    """
     if request.method == 'GET':
         return render_template('regist.html')
     else:
@@ -22,9 +26,9 @@ def regist():
         if user:
             return render_template('regist.html', error_email='该邮箱被注册，请更换邮箱！')
         else:
-            # password1 要和password2相等才可以
+        # password1 要和password2相等才可以
             if password1 != password2:
-                return render_template('regist.html', error_password='两次密码不相等，请核实后再填写')
+                return render_template('regist.html', eassword='两次密码不相等，请核实后再填写')
             else:
                 dbhelper.insert_user(email, username, password1)
                 return redirect(url_for('login.login'))
@@ -32,6 +36,10 @@ def regist():
 
 @login_blu.route('/login/', methods=['GET', 'POST'])
 def login():
+    """
+    登陆函数，检测，返回用户名，密码
+    :return:
+    """
     if request.method == 'GET':
         return render_template('login.html')
     else:
@@ -56,5 +64,9 @@ def login():
 
 @login_blu.route('/logout/')
 def logout():
+    """
+    退出函数，清除session
+    :return:
+    """
     session.clear()
     return redirect(url_for('login.login'))

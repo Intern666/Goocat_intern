@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %} 个人中心{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/person.css') }}">
+{% endblock %}
+{% block main %}
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+          <img class="logo" src="{{ url_for('static',filename='images/1110055.png') }}" alt="">
+      </a>
+    </div>
+
+    <ul class="nav navbar-nav">
+        <li><a href="{{ url_for('person.person_info') }}">个人信息</a></li>
+        <li><a href="{{ url_for('person.person_questions') }}">全部提问</a></li>
+        <li class="active"><a href="/">全部回答<span class="sr-only">(current)</span></a></li>
+    </ul>
+
+
+    <br>
+    <br>
+    <br><center>全部回答</center>
+    <br>
+    <ul class="answer-list">
+        {% if answers|length == 0 %}
+            <div class="answer-group">
+                <p class="attention-info">
+                        当前无回答
+                </p>
+            </div>
+        {% endif %}
+        {% for answer in answers %}
+            <li>
+                <div class="user-info">
+                    <img src="{{ url_for('static',filename='images/1110055.png') }}" alt="" class="avatar">
+                    <span class="username">{{ answer.UserName }}</span>
+                    <span class="create-time">{{ answer.AnswerTime }}</span>
+                </div>
+                <p class="answer-content">
+                    <a href="{{ url_for('answer.detail', question_id=answer.QuestionID) }}">{{ answer.AnswerContent }}</a>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
