@@ -1,7 +1,7 @@
 from flask import Blueprint, request, render_template, session, redirect, url_for
 from decorators import login_required
 import dbhelper
-
+import pdb
 person_blu = Blueprint('person', __name__)
 
 @person_blu.route('/person_info/',methods=['GET','POST'])
@@ -59,7 +59,7 @@ def person_answers():
 @login_required
 def person_info_update():
     if request.method == 'GET':
-        return render_template('person_info_update.html')
+        return render_template('person_info.html')
     else:
         author_id = session.get('user_id')
         email = request.form.get('email')
@@ -74,5 +74,11 @@ def person_info_update():
         else:
             dbhelper.update_user_by_userid(author_id, email, username, gender, school)
             # return redirect(url_for('person.person_info'))
-            return render_template('person_info_update.html')
+            return render_template('person_info.html')
+
+
+@person_blu.route('/person_info_update_test/',methods=['GET','POST'])
+@login_required
+def person_info_update_test():
+    return render_template('person_info_update.html')
 

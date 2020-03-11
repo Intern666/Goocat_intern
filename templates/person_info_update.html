@@ -28,7 +28,7 @@
     <br><center>更新个人信息</center>
     <br>
 
-    <form action="" method="post" onsubmit="return OnSubmit()">
+    <form action="{{ url_for('person.person_info_update') }}" method="post" onsubmit="return OnSubmit()">
         <div class="form-container">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="邮箱" name="email" id="email"
@@ -50,7 +50,7 @@
                        onblur="SchoolCheck()">
                 <label id="gender_error" style="display:block;color: red"></label>
             </div>
-            <div class="form-group"  action="{{ url_for('person.person_info') }}" method="post">
+            <div class="form-group"  action="" method="post">
                 <button type="submit" class="btn btn-primary btn-block">确认更新</button>
             </div>
             <div class="form-group">
