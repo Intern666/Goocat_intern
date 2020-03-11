@@ -5,12 +5,23 @@
     <title>{% block title %}{% endblock %}-问答平台</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css')}}" >
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static',filename='images/favicon.ico') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ url_for('static',filename='images/head.jpg') }}" type="image/x-icon" />
     <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/bootstrap.min.js')}}" crossorigin="anonymous"></script>
+    <style>
+		.xue{
+			background: url({{url_for('static',filename='images/basebg.jpg') }}) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            opacity: 0.9;
+		}
+	</style>
     {% block head %}{% endblock %}
 </head>
 <body>
+<body class="xue">
 <nav class="navbar navbar-default">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -22,7 +33,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#">
-          <img class="logo" src="{{ url_for('static',filename='images/1110055.png') }}" alt="">
+          <img class="logo" src="{{ url_for('static',filename='images/head.jpg') }}" alt="">
       </a>
     </div>
 

@@ -80,7 +80,7 @@ def fetch_all_questions(conn=conn, cursor=cursor):
     # sql = "select * from question order by create_time"
     # sql = "select a.`id`, a.`title`, a.`create_time`, a.`content`, b.`username` from question a " \
     #       "left join user b on a.`author_id`=b.`id` order by a.`create_time` desc"
-    sql = "select a.`id`, a.`QuestionTitle`, a.`QuestionTime`, a.`QuestionContent`, b.`UserName` " \
+    sql = "select a.`id`, a.`QuestionTitle`, a.`QuestionTime`, a.`QuestionContent`, b.`UserName`, a.`UserID`" \
           "from user_question a left join user_info b on a.`UserID`=b.`id` order by a.`QuestionTime` desc"
     cursor.execute(sql)
     rows = cursor.fetchall()
@@ -97,7 +97,7 @@ def fetch_questions_by_questionid(question_id, conn=conn, cursor=cursor):
     # sql = "select * from question where id=%s limit 1" % question_id
     # sql = "select a.`id`, a.`title`, a.`content`, a.`create_time`, b.`username` from question a " \
     #       "left join user b on a.`author_id` = b.`id` where a.`id`=%s limit 1"
-    sql = "select a.`id`, a.`QuestionTitle`, a.`QuestionContent`, a.`QuestionTime`, b.`UserName`" \
+    sql = "select a.`id`, a.`QuestionTitle`, a.`QuestionContent`, a.`QuestionTime`, b.`UserName`,a.`UserID`" \
           " from user_question a left join user_info b on a.`UserID` = b.`id` where a.`id`=%s limit 1"
     args = question_id
     cursor.execute(sql, args)
@@ -216,6 +216,7 @@ def answer_count(question_id, conn=conn, cursor=cursor):
     count = cursor.fetchall()[0].get("count")
     return count
 
+
 @sql_required
 def fetch_questions_by_userid(user_id, conn = conn, cursor = cursor):
     sql = "select a.`id`, a.`QuestionTitle`, a.`QuestionTime`, a.`QuestionContent`, b.`UserName`" \
@@ -244,4 +245,30 @@ def update_user_by_userid(user_id, email, username, gender, school, conn = conn,
         conn.commit()
     except Exception as e:
         logging.error(str(e))
+
+
+
+@sql_required
+def update_user_mute(user_id, user_mute, conn=conn, cursor=cursor):
+    user_new_mute = (int(user_mute) + 1) % 2
+    sql = "update user_info set UserMute=%s where id=%s"
+    args = (str(user_new_mute), user_id)
+    cursor.execute(sql, args)
+    conn.commit()
+
+
+@sql_required
+def delete_question_by_questionId(question_id, conn=conn, cursor=cursor):
+    sql = "delete from user_question where id=%s"
+    args = (question_id)
+    cursor.execute(sql, args)
+    conn.commit()
+
+
+@sql_required
+def delete_answers_by_questionID(question_id, conn=conn, cursor=cursor):
+    sql = "delete from user_answer where QuestionID=%s"
+    args = (question_id)
+    cursor.execute(sql, args)
+    conn.commit()
 

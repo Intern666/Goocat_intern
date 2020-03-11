@@ -6,6 +6,7 @@
 {% block main %}
     {% if question %}
         <h3 class="page-title">{{ question.QuestionTitle }}</h3>
+
         <p class="question-info">
             <span>作者：{{ question.UserName }}</span>
             <span>时间：{{ question.QuestionTime }}</span>
@@ -13,18 +14,31 @@
         <hr/>
         <p class="question-content">{{ question.QuestionContent }}</p>
         <hr/>
-        <h4>评论：（{{ answer_count }}）</h4>
-
+        {% if user %}
+            {% if  user.UserStatus == '1' %}
+                <form action="{{ url_for('admin.delete_question') }}" method="post">
+                    <input type="hidden" name="question_id_delete" value="{{ question.id }}">
+                    <button type="submit" class="btn btn-primary">删除问题</button>
+                </form>
+            {% else %}
+                {% if  user.id == question.UserID %}
+                    <form action="{{ url_for('answer.delete_question') }}" method="post">
+                        <input type="hidden" name="question_id_delete" value="{{ question.id }}">
+                        <button type="submit" class="btn btn-primary">删除问题</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        <h4>回答：（{{ answer_count }}）</h4>
         {% if user %}
             {% if user.UserMute != '1' %}
                 <form action="{{ url_for('answer.add_answer') }}" method="post" onsubmit="return checksubmit()">
                     <div class="form-group">
-                        <input type="text" name="answer_content" id="answer_content" class="form-control"
-                               placeholder="请填写评论">
+                        <input type="text" name="answer_content" class="form-control" placeholder="请填写回答">
                         <input type="hidden" name="question_id" value="{{ question.id }}">
                     </div>
                     <div class="form-group" style="text-align: right">
-                        <button type="submit" class="btn btn-primary">评论</button>
+                        <button type="submit" class="btn btn-primary">发布</button>
                     </div>
                     <div class="form-group">
                         <label id="label_error"
@@ -42,7 +56,7 @@
 
         {% endif %}
     {% else %}
-         <h3 class="attention-info"> 问题走丢了！！ 404</h3>
+        <h3 class="attention-info"> 问题走丢了！！ 404</h3>
     {% endif %}
 
 
