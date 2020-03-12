@@ -167,7 +167,9 @@ def insert_question(title, content, author_id, conn=conn, cursor=cursor):
           "VALUES (%s, %s, %s)"
     args = (title, content, author_id)
     cursor.execute(sql, args)
+    question_id = conn.insert_id()
     conn.commit()
+    return question_id
 
 
 @sql_required
@@ -272,3 +274,20 @@ def delete_answers_by_questionID(question_id, conn=conn, cursor=cursor):
     cursor.execute(sql, args)
     conn.commit()
 
+def connectSocket(data1):
+    try:
+        from socket import socket,AF_INET,SOCK_STREAM
+        HOST = '127.0.0.1'  # or 'localhost'
+        PORT = 50008
+        BUFSIZ = 4098
+        ADDR = (HOST, PORT)
+        tcpCliSock = socket(AF_INET, SOCK_STREAM)
+        tcpCliSock.connect(ADDR)
+        # data = str(data)
+        tcpCliSock.send(data1.encode())
+        data1 = tcpCliSock.recv(BUFSIZ)
+        data1 = data1.decode('utf-8')
+        tcpCliSock.close()
+    except Exception as e:
+        return ""
+    return data1

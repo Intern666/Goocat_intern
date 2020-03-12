@@ -26,7 +26,14 @@ def question():
 
         title = request.form.get('title')
         content = request.form.get('content')
-        dbhelper.insert_question(title, content, author_id)
+        question_id = dbhelper.insert_question(title, content, author_id)
+
+        ##add autoanswer()
+        result = dbhelper.connectSocket(title + content)
+        if result!="":
+            dbhelper.insert_answer("自动回答："+result, question_id, author_id)
+        print(result)
+
         return redirect(url_for('index'))
 
 
@@ -44,5 +51,3 @@ def search():
         # 或 查找方式（通过标题和内容来查找）
         questions = dbhelper.search_by_key(search_key)
         return render_template('index.html', questions=questions, search_key=search_key)
-
-
