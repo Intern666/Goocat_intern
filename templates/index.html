@@ -3,10 +3,15 @@
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
     {% for message in get_flashed_messages() %}
-    <div class="alert alert-warning">
+    <div class="alert alert-warning" id="notice">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         {{ message }}
     </div>
+    <script>
+      window.setTimeout(function(){
+        $("#notice").alert('close');
+    },10000);
+    </script>
     {% endfor %}
 {% endblock %}
 {% block main %}

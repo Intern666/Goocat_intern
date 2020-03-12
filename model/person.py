@@ -69,16 +69,18 @@ def person_info_update():
         if email=='' or username =='' or gender =='' or school =='':
             return render_template('person_info_update.html',  error='输入有误，请重新输入！')
         user = dbhelper.fetch_user_by_email(email)
-        if user:
+        if user and user[0].get('id') != author_id:
             return render_template('person_info_update.html', error_email='该邮箱被注册，请更换邮箱！')
         else:
             dbhelper.update_user_by_userid(author_id, email, username, gender, school)
-            # return redirect(url_for('person.person_info'))
-            return render_template('person_info.html')
+            return redirect(url_for('person.person_info'))
+            # return render_template('person_info.html')
 
 
 @person_blu.route('/person_info_update_test/',methods=['GET','POST'])
 @login_required
 def person_info_update_test():
-    return render_template('person_info_update.html')
+    user_id = session.get('user_id')
+    user = dbhelper.fetch_user_by_id(user_id)
+    return render_template('person_info_update.html',user=user)
 

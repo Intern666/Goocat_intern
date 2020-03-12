@@ -56,7 +56,7 @@ def login():
             session['user_id'] = user.get("id")
             # 如果想在31天内都不需要登录
             session.permanent = True
-            flash("You were logged in")
+            flash("您已经成功登陆！")
             return redirect(url_for('index'))
         else:
             return render_template('login.html',  error='邮箱地址或者密码错误，请确认好再登录')
