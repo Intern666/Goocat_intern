@@ -13,12 +13,12 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#">
-          <img class="logo" src="{{ url_for('static',filename='images/1110055.png') }}" alt="">
+          <img class="logo" src="{{ url_for('static',filename='images/head.jpg') }}" alt="">
       </a>
     </div>
 
     <ul class="nav navbar-nav">
-        <li class="active"><a href="/">个人信息<span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="{{ url_for('person.person_info') }}">个人信息<span class="sr-only">(current)</span></a></li>
         <li><a href="{{ url_for('person.person_questions') }}">全部提问</a></li>
         <li><a href="{{ url_for('person.person_answers') }}">全部回答</a></li>
     </ul>

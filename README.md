@@ -60,7 +60,12 @@ config = {
         'cursorclass': pymysql.cursors.DictCursor
         }
 ```
-
+``````
+host: 101.37.23.58
+User: root
+Password: root
+Database: goocat
+```
 - 运行，打开http://127.0.0.1:5000
 
 

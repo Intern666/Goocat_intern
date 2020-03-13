@@ -1,8 +1,32 @@
-.logo{
-    width: 20px;
-}
+
 body{
     background:#f3f3f3;
+}
+
+li
+{
+    float:left;
+    border-right:1px solid #bbb;
+
+}
+
+
+li:link,li:visited
+{
+    display:block;
+    width:120px;
+    font-weight:bold;
+    color:#17a2b8;
+    background-color:#ffffff;
+    text-align:center;
+    padding:4px;
+    text-decoration:none;
+    text-transform:uppercase;
+}
+
+li:hover,li:active
+{
+    background-color:#17a2b8;
 }
 .main{
     background: #fff;
@@ -10,7 +34,31 @@ body{
     overflow: hidden;
     margin: 0 auto;
     padding: 10px;
+    border-right:1px solid #bbb;
 }
+
+
+.navbar-collapse,.navbar-brand
+{
+    list-style-type:none;
+
+    background: #fff;
+    width: 100%;
+
+    font-weight:bold;
+    color:#17a2b8;
+    text-align:center;
+    text-decoration:none;
+    text-transform:uppercase;
+
+}
+
 .page-title{
     text-align: center;
 }
+
+.logo{
+    width: 20px;
+}
+
+

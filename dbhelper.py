@@ -220,37 +220,6 @@ def answer_count(question_id, conn=conn, cursor=cursor):
 
 
 @sql_required
-def fetch_questions_by_userid(user_id, conn = conn, cursor = cursor):
-    sql = "select a.`id`, a.`QuestionTitle`, a.`QuestionTime`, a.`QuestionContent`, b.`UserName`" \
-          " from user_question a left join user_info b on a.`UserID`=b.`id` where a.`UserID` = %s order by a.`QuestionTime` desc"
-    args = user_id
-    cursor.execute(sql, args)
-    rows = cursor.fetchall()
-    return rows
-
-@sql_required
-def fetch_answers_by_userid(user_id, conn = conn, cursor = cursor):
-    sql = "select a.`AnswerContent`, a.`QuestionID`, a.`UserID`, a.`AnswerTime`, b.`UserName` from user_answer a " \
-          "left join user_info b on a.`UserID`=b.`id` where a.`UserID`=%s order by a.`AnswerTime` desc"
-    args = user_id
-    cursor.execute(sql, args)
-    rows = cursor.fetchall()
-    return rows
-
-@sql_required
-def update_user_by_userid(user_id, email, username, gender, school, conn = conn, cursor = cursor):
-    sql = "update user_info set `UserEmail` = %s, `UserName` = %s, `UserGender` = %s, `UserSchool` = %s" \
-          "where `id` = %s"
-    args = (email, username, gender, school, user_id)
-    try:
-        cursor.execute(sql, args)
-        conn.commit()
-    except Exception as e:
-        logging.error(str(e))
-
-
-
-@sql_required
 def update_user_mute(user_id, user_mute, conn=conn, cursor=cursor):
     user_new_mute = (int(user_mute) + 1) % 2
     sql = "update user_info set UserMute=%s where id=%s"
@@ -273,21 +242,3 @@ def delete_answers_by_questionID(question_id, conn=conn, cursor=cursor):
     args = (question_id)
     cursor.execute(sql, args)
     conn.commit()
-
-def connectSocket(data1):
-    try:
-        from socket import socket,AF_INET,SOCK_STREAM
-        HOST = '127.0.0.1'  # or 'localhost'
-        PORT = 50008
-        BUFSIZ = 4098
-        ADDR = (HOST, PORT)
-        tcpCliSock = socket(AF_INET, SOCK_STREAM)
-        tcpCliSock.connect(ADDR)
-        # data = str(data)
-        tcpCliSock.send(data1.encode())
-        data1 = tcpCliSock.recv(BUFSIZ)
-        data1 = data1.decode('utf-8')
-        tcpCliSock.close()
-    except Exception as e:
-        return ""
-    return data1
