@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}-问答平台</title>
@@ -17,14 +16,9 @@
             -o-background-size: cover;
             background-size: cover;
             opacity: 0.9;
-
 		}
 	</style>
-
-
     {% block head %}{% endblock %}
-
-
 </head>
 <body class="xue">
 <nav class="navbar navbar-default">
@@ -49,25 +43,17 @@
           {% if user%}
               <li><a href="#">{{ user.UserName }}</a></li>
               <li><a href="{{ url_for('login.logout') }}">注销</a></li>
-
           {% else %}
               <li><a href="{{ url_for('login.login') }}">登录</a></li>
               <li><a href="{{ url_for('login.regist') }}">注册</a></li>
-
           {% endif %}
 
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
-
-
 <div class="main">
     {% block main %}{% endblock %}
 </div>
-
-
-
 </body>
 </html>
