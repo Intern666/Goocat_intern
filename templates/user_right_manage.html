@@ -6,8 +6,10 @@
 {% block main %}
 
  <h3 class="page-title">管理员操作页面</h3>
-    <h3 class="question-content">用户禁言状态：{{ user_muted.UserMute }}</h3>
-    <form action="" method="post">
+
+    <li class="list-group-item" style="width: 800px">用户禁言状态：{% if user_muted.UserMute == "0"  %} 正常 {% else %} 禁言 {% endif %}</li>
+
+    <form class="form-group"  action="" method="post">
         <input type="hidden" name="user_id" value="{{ user_muted.id }}">
         <input type="hidden" name="user_mute" value="{{ user_muted.UserMute }}">
         <div  class="form-group" style="text-align: right">

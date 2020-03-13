@@ -31,7 +31,7 @@ def question():
         ##add autoanswer()
         result = dbhelper.connectSocket(title + content)
         if result!="":
-            dbhelper.insert_answer("自动回答："+result, question_id, author_id)
+            dbhelper.insert_answer("自动回答："+result, question_id, "0")
         print(result)
 
         return redirect(url_for('index'))

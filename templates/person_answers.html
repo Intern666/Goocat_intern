@@ -37,7 +37,7 @@
             </div>
         {% endif %}
         {% for answer in answers %}
-            <li>
+            <ui>
                 <div class="user-info">
                     <img src="{{ url_for('static',filename='images/head.jpg') }}" alt="" class="avatar">
                     <span class="username">{{ answer.UserName }}</span>
@@ -45,8 +45,9 @@
                 </div>
                 <p class="answer-content">
                     <a href="{{ url_for('answer.detail', question_id=answer.QuestionID) }}">{{ answer.AnswerContent }}</a>
+                    <br>
                 </p>
-            </li>
+            </ui>
         {% endfor %}
     </ul>
 
