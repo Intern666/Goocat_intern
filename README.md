@@ -65,7 +65,12 @@ host: 101.37.23.58
 User: root
 Password: root
 Database: goocat
-```
+``````
 - 运行，打开http://127.0.0.1:5000
 
+
+```
+运行 python socket/recall_model_socket.py 
+将会占用50008端口传送自动回答的数据
+```
 
