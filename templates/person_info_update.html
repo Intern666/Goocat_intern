@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block title %} 个人中心{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/person.css') }}">
+{% endblock %}
+{% block main %}
+
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+            <img class="logo" src="{{ url_for('static',filename='images/head.jpg') }}" alt="">
+        </a>
+    </div>
+
+    <ul class="nav navbar-nav">
+        <li class="active"><a href="/">个人信息<span class="sr-only">(current)</span></a></li>
+        <li><a href="{{ url_for('person.person_questions') }}">全部提问</a></li>
+        <li><a href="{{ url_for('person.person_answers') }}">全部回答</a></li>
+    </ul>
+
+    <br>
+    <br>
+    <br>
+    <center>更新个人信息</center>
+    <br>
+
+    <form action="{{ url_for('person.person_info_update') }}" method="post" onsubmit="return OnSubmit()">
+        <div class="form-container">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="邮箱" name="email" id="email"
+                       value="{{ user.UserEmail }}"
+                       onblur="EmailCheck()">
+                <label id="email_error" style="display:block;color: red">{{ error_email }}</label>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="昵称" name="username" id="username"
+                       value="{{ user.UserName }}"
+                       onblur="UsernameCheck()">
+                <label id="username_error" style="display:block;color: red"></label>
+            </div>
+            <div class="form-group" align="center">
+                性别：
+                {% if user.UserGender == "男" %}
+                <input type="radio" name="gender" id="gender" value="男" checked="true">男
+                <input type="radio" name="gender" id="gender" value="女">女
+                {% elif user.UserGender == "女" %}
+                <input type="radio" name="gender" id="gender" value="男">男
+                <input type="radio" name="gender" id="gender" value="女" checked="true">女
+                {% else %}
+                <input type="radio" name="gender" id="gender" value="男">男
+                <input type="radio" name="gender" id="gender" value="女" >女
+                {% endif %}
+                <label id="gender_error" style="display:block;color: red"></label>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="学校" name="school" id="school"
+                       value="{{ user.UserSchool }}"
+                       onblur="SchoolCheck()">
+                <label id="gender_error" style="display:block;color: red"></label>
+            </div>
+            <div class="form-group" action="" method="post">
+                <button type="submit" class="btn btn-primary btn-block">确认更新</button>
+            </div>
+            <div class="form-group">
+                <label id="label_error" style="display:block;color: red">{{ error }}</label>
+            </div>
+        </div>
+    </form>
+    <script>
+        flag = true;
+
+        function EmailCheck() {
+            if ($('#email').val() == "") {
+                $('#email_error').html("邮箱不能为空");
+                flag = false;
+            } else {
+                var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+                if (!myreg.test($('#email').val())) {
+                    $('#email_error').html("邮箱不合法！");
+                    flag = false;
+                } else {
+                    $('#email_error').html("");
+                    flag = true;
+                }
+            }
+
+        }
+
+        function UsernameCheck() {
+
+            if ($('#username').val() == "") {
+                $('#username_error').html("用户名不能为空");
+                flag = false;
+            } else {
+                $('#username_error').html("");
+                flag = true;
+            }
+        }
+
+        {#function GenderCheck() {#}
+        {##}
+        {#    if ($('#gender').val() == "") {#}
+        {#        $('#gender_error').html("性别不能为空");#}
+        {#        flag = false;#}
+        {#    } else if ($('#gender').val() !== "男" && $('#gender').val() !== "女") {#}
+        {#        $('#gender_error').html("性别输入有误，请重新输入");#}
+        {#        flag = false;#}
+        {#    } else {#}
+        {#        $('#gender_error').html("");#}
+        {#        flag = true;#}
+        {#    }#}
+        {# }#}
+
+        function SchoolCheck() {
+
+            if ($('#school').val() == "") {
+                $('#school_error').html("用户名不能为空");
+                flag = false;
+            } else {
+                $('#school_error').html("");
+                flag = true;
+            }
+        }
+
+        function OnSubmit() {
+            return flag;
+        }
+    </script>
+{% endblock %}

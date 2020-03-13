@@ -178,7 +178,7 @@ def search_by_key(search_key, conn=conn, cursor=cursor):
     :return:
     """
     # sql = "select * from user_question WHERE QuestionContent like %s or QuestionTitle like %s order by QuestionTime desc"
-    sql = "select a.`id`, a.`QuestionTitle`, a.`QuestionContent`, a.`QuestionTime`, b.`UserName`" \
+    sql = "select a.`id`, a.`QuestionTitle`, a.`QuestionContent`, a.`QuestionTime`, b.`UserName` " \
           " from user_question a left join user_info b on a.`UserID` = b.`id` WHERE QuestionContent " \
           "like %s or QuestionTitle like %s order by QuestionTime desc"
     # 匹配格式为 %key%  即包含key的
@@ -218,6 +218,37 @@ def answer_count(question_id, conn=conn, cursor=cursor):
 
 
 @sql_required
+def fetch_questions_by_userid(user_id, conn = conn, cursor = cursor):
+    sql = "select a.`id`, a.`QuestionTitle`, a.`QuestionTime`, a.`QuestionContent`, b.`UserName`" \
+          " from user_question a left join user_info b on a.`UserID`=b.`id` where a.`UserID` = %s order by a.`QuestionTime` desc"
+    args = user_id
+    cursor.execute(sql, args)
+    rows = cursor.fetchall()
+    return rows
+
+@sql_required
+def fetch_answers_by_userid(user_id, conn = conn, cursor = cursor):
+    sql = "select a.`AnswerContent`, a.`QuestionID`, a.`UserID`, a.`AnswerTime`, b.`UserName` from user_answer a " \
+          "left join user_info b on a.`UserID`=b.`id` where a.`UserID`=%s order by a.`AnswerTime` desc"
+    args = user_id
+    cursor.execute(sql, args)
+    rows = cursor.fetchall()
+    return rows
+
+@sql_required
+def update_user_by_userid(user_id, email, username, gender, school, conn = conn, cursor = cursor):
+    sql = "update user_info set `UserEmail` = %s, `UserName` = %s, `UserGender` = %s, `UserSchool` = %s" \
+          "where `id` = %s"
+    args = (email, username, gender, school, user_id)
+    try:
+        cursor.execute(sql, args)
+        conn.commit()
+    except Exception as e:
+        logging.error(str(e))
+
+
+
+@sql_required
 def update_user_mute(user_id, user_mute, conn=conn, cursor=cursor):
     user_new_mute = (int(user_mute) + 1) % 2
     sql = "update user_info set UserMute=%s where id=%s"
@@ -240,3 +271,4 @@ def delete_answers_by_questionID(question_id, conn=conn, cursor=cursor):
     args = (question_id)
     cursor.execute(sql, args)
     conn.commit()
+
