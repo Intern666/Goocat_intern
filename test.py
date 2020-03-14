@@ -3,6 +3,7 @@ import app
 import pdb
 import random
 
+
 class MyTestCase(unittest.TestCase):
     # def test_something(self):
     #     self.assertEqual(True, False)
@@ -114,6 +115,7 @@ class MyTestCase(unittest.TestCase):
         self.login()
         rv = self.app.get('/person_info_update_test/', follow_redirects=True)
         self.assertEqual(200, rv.status_code)
+
 
 if __name__ == '__main__':
     # suite = unittest.TestSuite()

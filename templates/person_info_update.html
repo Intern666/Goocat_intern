@@ -47,14 +47,14 @@
             <div class="form-group" align="center">
                 性别：
                 {% if user.UserGender == "男" %}
-                <input type="radio" name="gender" id="gender" value="男" checked="true">男
-                <input type="radio" name="gender" id="gender" value="女">女
+                    <input type="radio" name="gender" id="gender" value="男" checked="true">男
+                    <input type="radio" name="gender" id="gender" value="女">女
                 {% elif user.UserGender == "女" %}
-                <input type="radio" name="gender" id="gender" value="男">男
-                <input type="radio" name="gender" id="gender" value="女" checked="true">女
+                    <input type="radio" name="gender" id="gender" value="男">男
+                    <input type="radio" name="gender" id="gender" value="女" checked="true">女
                 {% else %}
-                <input type="radio" name="gender" id="gender" value="男">男
-                <input type="radio" name="gender" id="gender" value="女" >女
+                    <input type="radio" name="gender" id="gender" value="男">男
+                    <input type="radio" name="gender" id="gender" value="女">女
                 {% endif %}
                 <label id="gender_error" style="display:block;color: red"></label>
             </div>

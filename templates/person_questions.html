@@ -6,15 +6,16 @@
 {% block main %}
 
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">
-          <img class="logo" src="{{ url_for('static',filename='images/head.jpg') }}" alt="">
-      </a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+            <img class="logo" src="{{ url_for('static',filename='images/head.jpg') }}" alt="">
+        </a>
     </div>
 
     <ul class="nav navbar-nav">
@@ -26,34 +27,35 @@
 
     <br>
     <br>
-    <br><center>全部提问</center>
+    <br>
+    <center>全部提问</center>
     <br>
     <ul class="question-list">
         {% if questions|length == 0 %}
             <div class="question-group">
                 <p class="attention-info">
-                        当前无问题
+                    当前无问题
                 </p>
             </div>
         {% endif %}
 
-            {% for question in questions %}
-                <li>
-                    <div class="avatar-group">
-                        <img src="{{ url_for('static',filename='images/1110055.png') }}" alt="" class="avatar">
+        {% for question in questions %}
+            <li>
+                <div class="avatar-group">
+                    <img src="{{ url_for('static',filename='images/1110055.png') }}" alt="" class="avatar">
+                </div>
+                <div class="question-group">
+                    <p class="question-title">
+                        <a href="{{ url_for('answer.detail', question_id=question.id) }}">{{ question.QuestionTitle }}</a>
+                    </p>
+                    <p class="question-content">{{ question.QuestionContent }}</p>
+                    <div class="question-info">
+                        <span class="question-author">{{ question.UserName }}</span>
+                        <span class="question-time">{{ question.QuestionTime }}</span>
                     </div>
-                    <div class="question-group">
-                        <p class="question-title">
-                            <a href="{{ url_for('answer.detail', question_id=question.id) }}">{{ question.QuestionTitle }}</a>
-                        </p>
-                        <p class="question-content">{{ question.QuestionContent }}</p>
-                            <div class="question-info">
-                                <span class="question-author">{{ question.UserName }}</span>
-                                <span class="question-time">{{ question.QuestionTime }}</span>
-                            </div>
-                    </div>
-                </li>
-            {% endfor %}
+                </div>
+            </li>
+        {% endfor %}
     </ul>
 
 {% endblock %}

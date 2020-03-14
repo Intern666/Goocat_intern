@@ -23,7 +23,7 @@
                     {% with messages = get_flashed_messages() %}
                         {% if messages %}
                             {% for message in messages %}
-                                    {{ message }}
+                                {{ message }}
                             {% endfor %}
                         {% endif %}
                     {% endwith %}{{ error }}
@@ -34,19 +34,19 @@
     <script>
         flag = true;
 
-        function EmailCheck(){
+        function EmailCheck() {
             var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
-            if (!myreg.test($('#email').val())){
+            if (!myreg.test($('#email').val())) {
                 $('#email_error').html("邮箱不合法！");
                 flag = false;
-            }else{
+            } else {
                 $('#email_error').html("");
                 flag = true;
             }
         }
 
         function OnSubmit() {
-            if (!flag){
+            if (!flag) {
                 return flag;
             }
             var errorinfo = $('#label_error');
