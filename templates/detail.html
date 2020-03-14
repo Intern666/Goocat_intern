@@ -63,14 +63,14 @@
 
     <ul class="answer-list">
         {% for answer in answers %}
-            <li>
+            <ui>
                 <div class="user-info">
                     <img src="{{ url_for('static',filename='images/head.jpg') }}" alt="" class="avatar">
                     <span class="username">{{ answer.UserName }}</span>
                     <span class="create-time">{{ answer.AnswerTime }}</span>
                 </div>
                 <p class="answer-content">{{ answer.AnswerContent }}</p>
-            </li>
+            </ui>
         {% endfor %}
     </ul>
     <script>
