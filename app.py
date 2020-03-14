@@ -29,12 +29,10 @@ def index():
     }
     return render_template('index.html', **context)
 
+
 @app.route('/firstpage', methods=["GET", "POST"])
 def firstpage():
-
     return render_template('firstpage.html')
-
-
 
 
 # 钩子函数(注销)

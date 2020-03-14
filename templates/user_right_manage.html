@@ -5,29 +5,33 @@
 {% endblock %}
 {% block main %}
 
- <h3 class="page-title">管理员操作页面</h3>
+    <h3 class="page-title">管理员操作页面</h3>
 
-    <li class="list-group-item" style="width: 800px">用户禁言状态：{% if user_muted.UserMute == "0"  %} 正常 {% else %} 禁言 {% endif %}</li>
+    <li class="list-group-item" style="width: 800px">用户禁言状态：{% if user_muted.UserMute == "0" %} 正常 {% else %}
+        禁言 {% endif %}</li>
 
-    <form class="form-group"  action="" method="post">
+    <form class="form-group" action="" method="post">
         <input type="hidden" name="user_id" value="{{ user_muted.id }}">
         <input type="hidden" name="user_mute" value="{{ user_muted.UserMute }}">
-        <div  class="form-group" style="text-align: right">
-            <button type="submit" class="btn btn-primary" id="user_mute" >{{ user_muted.mute_text }}</button>
+        <div class="form-group" style="text-align: right">
+            <button type="submit" class="btn btn-primary" id="user_mute">{{ user_muted.mute_text }}</button>
         </div>
     </form>
-        <script type="text/javascript">
-           $(document).ready(function () {
-               $("submit").click(function () {
-                   if ({{user_muted.UserMute}} == 1){//如果按按钮前该用户已被禁言
-                       $("#user_mute").html('禁言');//后端解除禁言，并重新显示可禁言的按钮
-                   }
-                   else{
-                       $("#user_mute").html('解禁');
-                   }
-               });
-           });
-        </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("submit").click(function () {
+                if ({{user_muted.UserMute}} == 1
+            )
+                {//如果按按钮前该用户已被禁言
+                    $("#user_mute").html('禁言');//后端解除禁言，并重新显示可禁言的按钮
+                }
+            else
+                {
+                    $("#user_mute").html('解禁');
+                }
+            });
+        });
+    </script>
 
 
 {% endblock %}

@@ -39,7 +39,6 @@ def question():
         return redirect(url_for('index'))
 
 
-@question_blu.route('/search/', methods=['GET', 'POST'])
 def search():
     """
     关键词搜索函数，返回带关键词的所有提问s

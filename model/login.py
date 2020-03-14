@@ -31,6 +31,7 @@ def regist():
                 return render_template('regist.html', eassword='两次密码不相等，请核实后再填写')
             else:
                 dbhelper.insert_user(email, username, password1)
+                flash("注册成功！")
                 return redirect(url_for('login.login'))
 
 
