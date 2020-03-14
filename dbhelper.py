@@ -277,7 +277,7 @@ def update_user_by_userid(user_id, email, username, gender, school, conn = conn,
 def connectSocket(data1):
     try:
         from socket import socket,AF_INET,SOCK_STREAM
-        HOST = '127.0.0.1'  # or 'localhost'
+        HOST = 'cn-zz-bgp.sakurafrp.com'  # or 'localhost'
         PORT = 50008
         BUFSIZ = 4098
         ADDR = (HOST, PORT)

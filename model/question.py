@@ -29,9 +29,11 @@ def question():
         question_id = dbhelper.insert_question(title, content, author_id)
 
         ##add autoanswer()
+        print("connecting.....")
+
         result = dbhelper.connectSocket(title + content)
-        if result!="":
-            dbhelper.insert_answer("自动回答："+result, question_id, "0")
+        if result != "":
+            dbhelper.insert_answer("自动回答：" + result, question_id, "0")
         print(result)
 
         return redirect(url_for('index'))
