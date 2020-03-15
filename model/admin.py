@@ -10,6 +10,11 @@ admin_blu = Blueprint('admin', __name__)
 @admin_blu.route('/right/<author_id>/', methods=['GET', 'POST'])
 @admin_required
 def right(author_id):
+    """
+    更新用户禁言和非禁言的状态
+    :param author_id:用户id
+    :return:用户管理页面
+    """
     if request.method == 'GET':
         user = dbhelper.fetch_user_by_id(author_id)
         if user["UserMute"] == '1':
@@ -32,6 +37,10 @@ def right(author_id):
 @admin_blu.route('/delete_question/', methods=['POST'])
 @admin_required
 def delete_question():
+    """
+    管理员删除问题，并删除对应的数据库
+    :return:首页
+    """
     question_id_delete = request.form.get('question_id_delete')
     dbhelper.delete_answers_by_questionID(question_id_delete)
     dbhelper.delete_question_by_questionId(question_id_delete)

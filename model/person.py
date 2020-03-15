@@ -9,6 +9,10 @@ person_blu = Blueprint('person', __name__)
 @person_blu.route('/person_info/', methods=['GET', 'POST'])
 @login_required
 def person_info():
+    """
+    获取本人用户信息
+    :return:person_info.html 并传入用户信息
+    """
     author_id = session.get('user_id')
     user = dbhelper.fetch_user_by_id(author_id)
     questions = dbhelper.fetch_questions_by_userid(author_id)
@@ -29,6 +33,10 @@ def person_info():
 @person_blu.route('/person_questions/', methods=['GET', 'POST'])
 @login_required
 def person_questions():
+    """
+    获取本人提的问题
+    :return: person_questions.html并传入问题和答案
+    """
     author_id = session.get('user_id')
     user = dbhelper.fetch_user_by_id(author_id)
     questions = dbhelper.fetch_questions_by_userid(author_id)
@@ -46,6 +54,10 @@ def person_questions():
 @person_blu.route('/person_answers/', methods=['GET', 'POST'])
 @login_required
 def person_answers():
+    """
+    获取本人回答的答案
+    :return: person_questions.html并传入问题和答案
+    """
     author_id = session.get('user_id')
     user = dbhelper.fetch_user_by_id(author_id)
     questions = dbhelper.fetch_questions_by_userid(author_id)
@@ -63,6 +75,10 @@ def person_answers():
 @person_blu.route('/person_info_update/', methods=['GET', 'POST'])
 @login_required
 def person_info_update():
+    """
+    更新用户信息，根据前端传入的信息更新用户信息
+    :return:如果有重复，显示提示语，并继续修改，如果修改成功返回用户信息页面
+    """
     if request.method == 'GET':
         return render_template('person_info.html')
     else:
@@ -85,6 +101,10 @@ def person_info_update():
 @person_blu.route('/person_info_update_test/', methods=['GET', 'POST'])
 @login_required
 def person_info_update_test():
+    """
+    获取当前用户信息
+    :return:更新页面
+    """
     user_id = session.get('user_id')
     user = dbhelper.fetch_user_by_id(user_id)
     return render_template('person_info_update.html', user=user)

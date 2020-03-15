@@ -22,7 +22,7 @@ app.register_blueprint(admin_blu)
 def index():
     """
     主页函数，显示全部问题
-    :return:
+    :return: 主页信息和问题参数
     """
     context = {
         'questions': dbhelper.fetch_all_questions()
@@ -32,6 +32,10 @@ def index():
 
 @app.route('/firstpage', methods=["GET", "POST"])
 def firstpage():
+    """
+    首页函数，显示网页主页
+    :return: 返回首页网页
+    """
     return render_template('firstpage.html')
 
 
@@ -40,7 +44,7 @@ def firstpage():
 def my_context_processor():
     """
     定义钩子函数，各页面间传递user信息
-    :return:
+    :return: 登陆用户信息
     """
     user_id = session.get('user_id')
     if user_id:

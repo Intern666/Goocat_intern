@@ -46,6 +46,10 @@ def add_answer():
 @answer_blu.route('/delete_question_user/', methods=['POST'])
 @login_required
 def delete_question():
+    """
+    =针对于用户本人删除问题
+    :return:
+    """
     current_id = session.get('user_id')
     question_id_delete = request.form.get('question_id_delete')
     question = dbhelper.fetch_questions_by_questionid(question_id_delete)

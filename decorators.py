@@ -9,6 +9,11 @@ import dbhelper
 
 
 def login_required(func):
+    """
+    装饰器 使用装饰器限制登陆
+    :param func: 函数值
+    :return:装饰器
+    """
     @wraps(func)
     def decorate(*args, **kwargs):
         if session.get('user_id'):
@@ -21,6 +26,11 @@ def login_required(func):
 
 
 def admin_required(func):
+    """
+    装饰器 使用装饰器限制管理员登陆
+    :param func: 函数值
+    :return:装饰器
+    """
     @wraps(func)
     def decorate(*args, **kwargs):
         user_id = session.get('user_id')
