@@ -68,8 +68,14 @@ Database: goocat
 ``````
 - 运行，打开http://127.0.0.1:5000
 
+### 实现自动问答
+
+- 如果要实现自动问答的效果，需要另外自动问答的部分 
+
+- 切换路径到socket文件夹，安装对应的环境变量
 
 ```
+pip install -r socket/requirements_socks.txt
 运行 python socket/recall_model_socket.py 
 将会占用50008端口传送自动回答的数据
 ```
