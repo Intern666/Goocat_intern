@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-# @Time    : 2019/4/4 9:21
-# @Author  : Alan
-# @Email   : xiezhengwen2013@163.com
-# @File    : sentenceSimilarity.py
-# @Software: PyCharm
-
-
 import gc
 import tqdm
 import numpy as np

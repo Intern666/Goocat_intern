@@ -2,7 +2,7 @@ from socket import socket,AF_INET,SOCK_STREAM
 
 HOST = '127.0.0.1' # or 'localhost'
 PORT = 50008
-BUFSIZ =1024
+BUFSIZ =4098
 ADDR = (HOST,PORT)
 
 

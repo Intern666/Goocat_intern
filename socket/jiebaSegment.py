@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-# @Time    : 2019/4/3 19:46
-# @Author  : Alan
-# @Email   : xiezhengwen2013@163.com
-# @File    : cut.py
-# @Software: PyCharm
-
 import jieba
 import codecs
 

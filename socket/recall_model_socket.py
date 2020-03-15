@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-# @Time    : 2019/4/3 16:48
-# @Author  : Alan
-# @Email   : xiezhengwen2013@163.com
-# @File    : tmodel.py
-# @Software: PyCharm
-
 import pandas as pd
 import matplotlib as mpl
 import numpy as np
